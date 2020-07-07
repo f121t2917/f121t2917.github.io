@@ -1,0 +1,149 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            .privacy-banner {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                max-width: 100%;
+                padding: 1rem .5rem;
+                background: #fff;
+                z-index: 1030;
+                color: #000;
+                font-size: 14px;
+                margin: 0;
+                display: none;
+            }
+            .banner-wrapper {
+                max-width: 1200px;
+                width: 100%;
+                margin: 0 auto;
+                display: flex;
+                position: relative;
+                align-items: center;
+            }
+            .privacy-banner p {
+                margin: 0;
+                color: #000;
+                text-align: center;
+            }
+            .privacy-banner .banner-wrapper p {
+                padding-right: 3rem;
+            }
+            .privacy-banner a {
+                text-decoration: none;
+                margin: 20px auto 0 auto;
+                display: block;
+                max-width: 150px;
+            }
+            .privacy-banner a:hover {
+                text-decoration: underline;
+            }
+            .privacy-banner button {
+                position: absolute;
+                right: 5px;
+                top: calc(50% - 12.5px);
+                color: #fff;
+                outline: 0;
+                height: 25px;
+                width: 25px;
+                border: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.35rem;
+                font-weight: 700;
+                border-radius: 50%;
+                text-align: center;
+                padding: 0;
+                line-height: 1;
+                background: #000;
+                cursor: pointer;
+            }
+            .banner-learn {
+                color: #000;
+            }
+            .banner-accept {
+                padding: 7px 15px;
+                color: #fff;
+                border-radius: 5px;
+                background: #000;
+            }
+            @media (min-width: 768px) {
+                .privacy-banner {
+                    padding: 1.5rem .5rem;
+                }
+                .privacy-banner a {
+                    display: inline-block;
+                    margin: 0 10px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="privacy-banner" style="border-top: 2px solid #1565C0; display: none;">
+            <div>
+                <p>
+                    本網站使用cookies以提昇您的使用體驗及統計網路流量相關資料。繼續使用本網站表示您同意我們使用cookies。我們的隱私及Cookie政策提供更多關於cookies使用及停用的相關資訊。
+                    <a class="banner-accept" href="#" style="background: #0D47A1">我同意</a>
+                </p>
+            </div>
+        </div>
+
+        <script>
+            function setCookie(name, value, expiration, path = "/") {
+                var currentDate = new Date();
+                currentDate.setDate(currentDate.getDate() + expiration);
+                var expires = "expires=" + currentDate.toUTCString();
+                document.cookie = name + "=" + value + ";" + expires + ";path=" + path + ";";
+
+            }
+
+            function getCookie(name) {
+                name += "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var variables = decodedCookie.split(';');
+                for (var i = 0; i < variables.length; i++)
+                {
+                    var cookie = variables[i].trim();
+                    if (cookie.indexOf(name) == 0)
+                    {
+                        return cookie.substring(name.length, cookie.length);
+                    }
+                }
+
+                return "";
+            }
+
+            function acceptClick() {
+                setCookie('accept', 'true', (24*60*60*1000))
+                document.getElementsByClassName('privacy-banner')[0].style.display = 'none';
+            }
+
+            var accept = getCookie('accept');
+
+            if (!accept) {
+                document.getElementsByClassName('privacy-banner')[0].style.display = 'inherit'
+            } else {
+                document.getElementsByClassName('privacy-banner')[0].style.display = 'none'
+            }
+
+            var elements = document.getElementsByClassName("banner-accept");
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].addEventListener('click', acceptClick, false);
+            }
+
+            if (navigator.userAgent.match(/Opera|OPR\//)) {
+                document.getElementsByClassName('privacy-banner')[0].style.display = 'inherit'
+            }
+
+        </script>
+    </body>
+
+</html>
